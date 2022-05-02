@@ -1,0 +1,13 @@
+:root {
+    --accent: #1890ff;
+    --secondary-accent: #ff7830;
+    --third-accent: #ffda30;
+    --border-radius: 5px;
+
+    --lightgray: #bfbfbf;
+}
+
+[data-theme='DARK'] {
+}
+[data-theme='LIGHT'] {
+}

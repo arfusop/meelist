@@ -1,0 +1,18 @@
+.Nav {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+
+    .linksWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+
+        svg {
+            font-size: 1.2rem;
+        }
+    }
+}

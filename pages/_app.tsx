@@ -4,18 +4,17 @@ import { PageWrapper } from '../components/layout/PageWrapper'
 import { store } from '../lib/state/store'
 
 import 'antd/dist/antd.css'
-import '../styles/globals.css'
+import '../styles/globals.scss'
 
 const MyApp = ({ Component, pageProps }) => {
-    console.log(Component)
     return (
         <StoreProvider store={store}>
             {Component?.authPage ? (
+                <Component {...pageProps} />
+            ) : (
                 <PageWrapper>
                     <Component {...pageProps} />
                 </PageWrapper>
-            ) : (
-                <Component {...pageProps} />
             )}
         </StoreProvider>
     )

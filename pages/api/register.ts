@@ -14,11 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const salt = bcrypt.genSaltSync()
     const { email, password } = req.body
 
-    if (!email || !password) {
-        res.status(400)
-        res.json({ error: 'Missing credentials.' })
-    }
-
     let user
 
     try {
@@ -28,9 +23,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 password: bcrypt.hashSync(password, salt)
             }
         })
-    } catch (error) {
+    } catch (e) {
         res.status(401)
         res.json({ error: 'User already exists' })
+        return
     }
 
     const token = jwt.sign(
@@ -40,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             time: Date.now()
         },
         JWT_SECRET,
-        { expiresIn: '8h' }
+        { expiresIn: '16h' }
     )
 
     res.setHeader(

@@ -5,29 +5,59 @@ import { useRouter } from 'next/router'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
 // import Image from 'next/image'
 
-import fetcher from '../../lib/fetcher'
-import Logo from '../Logo'
+import { auth } from '../../lib/mutations'
+import { Alert } from '../feedback'
+import Logo from '../logo/Logo'
 import AuthBg from '../../assets/auth-img.jpg'
-import { AuthFormWrapper } from './styles/AuthFormWrapper'
+
+import styles from './styles/AuthForm.module.scss'
+
+interface AlertProps {
+    show: boolean
+    description: string
+    type: 'error' | 'success' | 'warning' | 'info'
+}
+
+const DEFAULT_ALERT: AlertProps = {
+    show: false,
+    description: '',
+    type: 'success'
+}
 
 const RegisterForm = () => {
     const router = useRouter()
     const setUser = useStoreActions((store: any) => store.setUser)
 
     const [loading, setLoading] = useState(false)
+    const [alert, setAlert] = useState<AlertProps>(DEFAULT_ALERT)
 
     const onFormSubmit = async (values: any) => {
-        setLoading(true)
-        const { email, password } = values
-        const newUser = await fetcher('/register', { email, password }, 'post')
+        try {
+            setLoading(true)
+            const { email, password } = values
+            const newUser = await auth('register', { email, password })
 
-        setLoading(false)
-        setUser(newUser)
-        router.push('/dashboard')
+            setLoading(false)
+            setUser(newUser)
+            router.push('/account')
+        } catch (error) {
+            setLoading(false)
+            setAlert({
+                show: true,
+                description: error.message,
+                type: 'error'
+            })
+        }
     }
 
+    const onAlertClose = () => setAlert(DEFAULT_ALERT)
+
     return (
-        <AuthFormWrapper bgImg={AuthBg.src}>
+        <section
+            className={styles.AuthForm}
+            style={{
+                backgroundImage: `url('${AuthBg.src}')`
+            }}>
             <Form
                 name="registerForm"
                 initialValues={{ remember: true }}
@@ -78,12 +108,19 @@ const RegisterForm = () => {
                         type="primary"
                         htmlType="submit"
                         className="login-form-button">
-                        Log in
+                        Sign Up
                     </Button>
                     Or <a href="">register now!</a>
                 </Form.Item>
+                {alert.show ? (
+                    <Alert
+                        description={alert.description}
+                        type={alert.type}
+                        onClose={onAlertClose}
+                    />
+                ) : null}
             </Form>
-        </AuthFormWrapper>
+        </section>
     )
 }
 

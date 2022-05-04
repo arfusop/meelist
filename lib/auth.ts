@@ -24,6 +24,7 @@ export const validateRoute = handler => {
                 res.json({ error: 'Not Authorized' })
                 return
             }
+            debugger
             return handler(req, res, user)
         }
         res.status(401)

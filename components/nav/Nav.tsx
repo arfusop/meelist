@@ -1,21 +1,27 @@
 import NextLink from 'next/link'
-import { useStoreState } from 'easy-peasy'
+import { useStoreState, useStoreActions } from 'easy-peasy'
 import { FaArrowAltCircleRight, FaUserAlt } from 'react-icons/fa'
 
+import fetcher from '../../lib/fetcher'
 import { decodeToken } from '../../utils/token'
 import styles from './Nav.module.scss'
 
 const Nav = () => {
     const user = useStoreState((state: any) => state.user)
+    const { setUser } = useStoreState((state: any) => state)
     const isLoggedIn = user?.id
 
     const onAccountIconClick = () => {
         console.log(user)
     }
 
-    const onLogoutClick = () => {
-        console.log(user)
-        decodeToken()
+    const onLogoutClick = async () => {
+        console.log('setUser: ', setUser)
+        try {
+            // await fetcher('/logout')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (

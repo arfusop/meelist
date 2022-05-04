@@ -1,4 +1,4 @@
-import { StoreProvider } from 'easy-peasy'
+import { StoreProvider, useStoreState } from 'easy-peasy'
 
 import { PageWrapper } from '../components/layout/PageWrapper'
 import { store } from '../lib/state/store'
@@ -12,7 +12,7 @@ const MyApp = ({ Component, pageProps }) => {
             {Component?.authPage ? (
                 <Component {...pageProps} />
             ) : (
-                <PageWrapper>
+                <PageWrapper pageProps={pageProps}>
                     <Component {...pageProps} />
                 </PageWrapper>
             )}

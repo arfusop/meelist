@@ -1,7 +1,6 @@
-export default function fetcher(url: string, data = undefined, method: string) {
-    const domain = window.location.origin
-    return fetch(`${domain}/api/${url}`, {
-        method,
+export default function fetcher(url: string, data = undefined) {
+    return fetch(`${window.location.origin}/api${url}`, {
+        method: data ? 'POST' : 'GET',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'

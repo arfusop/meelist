@@ -1,7 +1,9 @@
 import { createStore } from 'easy-peasy'
-import { setUser } from './actions'
+import { setUser, setBanner } from './actions'
 
 export const store = createStore({
     user: {},
-    setUser
+    banner: {},
+    setUser,
+    setBanner
 })

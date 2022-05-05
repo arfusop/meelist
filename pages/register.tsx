@@ -4,5 +4,5 @@ const Register = () => {
     return <RegisterForm />
 }
 
-Register.authForm = true
+Register.authPage = true
 export default Register

@@ -1,12 +1,12 @@
 import { Nav } from '../nav'
 
-import { PageWrapperStyles } from './styles'
+import styles from './PageWrapper.module.scss'
 
 export const PageWrapper = ({ children }: any) => {
     return (
-        <PageWrapperStyles>
+        <section className={styles.PageWrapper}>
             <Nav />
             {children}
-        </PageWrapperStyles>
+        </section>
     )
 }

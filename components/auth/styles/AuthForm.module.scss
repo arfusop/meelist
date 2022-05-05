@@ -1,7 +1,4 @@
-import styled from 'styled-components'
-
-export const AuthFormWrapper = styled.section`
-    background-image: ${({ bgImg }) => `url('${bgImg ?? ''}')`};
+.AuthForm {
     background-color: #cccccc;
     background-position: center;
     background-repeat: no-repeat;
@@ -30,4 +27,4 @@ export const AuthFormWrapper = styled.section`
         width: 50vw;
         padding: 1rem;
     }
-`
+}

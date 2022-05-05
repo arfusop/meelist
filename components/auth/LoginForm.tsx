@@ -34,10 +34,9 @@ const LoginForm = () => {
         try {
             setLoading(true)
             const { email, password } = values
-            const newUser = await auth('login', { email, password })
+            await auth('login', { email, password })
 
             setLoading(false)
-            setUser(newUser)
             router.push('/dashboard')
         } catch (error) {
             setLoading(false)

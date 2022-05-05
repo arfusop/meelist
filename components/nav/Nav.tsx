@@ -7,16 +7,15 @@ import { decodeToken } from '../../utils/token'
 import styles from './Nav.module.scss'
 
 const Nav = () => {
-    const user = useStoreState((state: any) => state.user)
-    const { setUser } = useStoreState((state: any) => state)
-    const isLoggedIn = user?.id
+    // const user = useStoreState((state: any) => state.user)
+    // const isLoggedIn = user?.id
+    const isLoggedIn = true
 
     const onAccountIconClick = () => {
-        console.log(user)
+        // console.log(user)
     }
 
     const onLogoutClick = async () => {
-        console.log('setUser: ', setUser)
         try {
             // await fetcher('/logout')
         } catch (error) {

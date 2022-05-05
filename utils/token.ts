@@ -12,7 +12,7 @@ export const isSessionActive = () => {
     // parse cookie
     const token = cookie.parse(ACCESS_TOKEN)
     // const isValidSession = jwt.verify(JWT_SECRET)
-    console.log('token: ', token)
+    // console.log('token: ', token)
     // console.log('isValidSession: ', isValidSession)
     // if expire time is past current time, remove cookie and log user out
     // if not, session is active

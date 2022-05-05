@@ -7,7 +7,6 @@ import styles from './Nav.module.scss'
 
 const AuthNav = () => {
     const router = useRouter()
-    const isLoggedIn = true
 
     const onAccountIconClick = () => {
         // console.log(user)

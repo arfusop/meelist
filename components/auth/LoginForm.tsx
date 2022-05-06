@@ -23,7 +23,7 @@ const DEFAULT_ALERT: AlertProps = {
     type: 'success'
 }
 
-const RegisterForm = () => {
+const LoginForm = () => {
     const router = useRouter()
     const setUser = useStoreActions((store: any) => store.setUser)
 
@@ -34,11 +34,10 @@ const RegisterForm = () => {
         try {
             setLoading(true)
             const { email, password } = values
-            const newUser = await auth('register', { email, password })
+            await auth('login', { email, password })
 
             setLoading(false)
-            setUser(newUser)
-            router.push('/account')
+            router.push('/dashboard')
         } catch (error) {
             setLoading(false)
             setAlert({
@@ -58,12 +57,12 @@ const RegisterForm = () => {
                 backgroundImage: `url('${AuthBg.src}')`
             }}>
             <Form
-                name="registerForm"
+                name="loginForm"
                 initialValues={{ remember: true }}
                 onFinish={onFormSubmit}>
                 <div className="authHeader">
                     <Logo origin="auth" />
-                    <h1>Register</h1>
+                    <h1>Login</h1>
                 </div>
                 <Form.Item
                     name="email"
@@ -107,7 +106,7 @@ const RegisterForm = () => {
                         type="primary"
                         htmlType="submit"
                         className="login-form-button">
-                        Sign Up
+                        Log In
                     </Button>
                     Or <a href="">register now!</a>
                 </Form.Item>
@@ -123,4 +122,4 @@ const RegisterForm = () => {
     )
 }
 
-export default RegisterForm
+export default LoginForm

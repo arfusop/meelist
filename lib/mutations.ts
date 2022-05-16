@@ -6,3 +6,7 @@ export const auth = (
 ) => {
     return fetcher(`/${mode}`, body)
 }
+
+export const updateAccount = (body: any) => {
+    return fetcher('/account', body)
+}

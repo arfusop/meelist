@@ -28,3 +28,28 @@
         padding: 1rem;
     }
 }
+
+.AccountForm {
+    margin: 2rem;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+
+        :global(.ant-form-item),
+        :global(.ant-input-number-affix-wrapper) {
+            width: 100%;
+        }
+    }
+
+    .buttons {
+        button {
+            width: 8rem;
+            margin-right: 1rem;
+        }
+    }
+}

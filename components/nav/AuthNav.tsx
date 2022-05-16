@@ -7,14 +7,13 @@ import styles from './Nav.module.scss'
 
 const AuthNav = () => {
     const router = useRouter()
-
-    const onAccountIconClick = () => {
-        // console.log(user)
-    }
+    const setUser = useStoreActions((store: any) => store.setUser)
+    const onAccountIconClick = () => router.push('/account')
 
     const onLogoutClick = async () => {
         try {
             await fetcher('/logout')
+            setUser(null)
             router.push('/')
         } catch (error) {
             console.log(error)

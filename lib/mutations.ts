@@ -10,3 +10,5 @@ export const auth = (
 export const updateAccount = (body: any) => {
     return fetcher('/account', body)
 }
+
+export const updatePassword = (body: any) => fetcher('/password-update', body)

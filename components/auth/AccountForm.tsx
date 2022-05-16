@@ -16,8 +16,9 @@ import {
 } from 'react-icons/fa'
 import { FiTarget } from 'react-icons/fi'
 
+import { VALID_PASSWORD } from '../../utils/regex'
 import { useUser } from '../../lib/hooks'
-import { updateAccount } from '../../lib/mutations'
+import { updateAccount, updatePassword } from '../../lib/mutations'
 import styles from './styles/AuthForm.module.scss'
 
 const AccountForm = () => {
@@ -27,6 +28,18 @@ const AccountForm = () => {
     const { user, isError, isLoading } = useUser()
 
     const [loading, setLoading] = useState(false)
+    const [passwordLoading, setPasswordLoading] = useState(false)
+    const [disablePassword, setDisablePassword] = useState(true)
+
+    const password = Form.useWatch('password', form)
+
+    useEffect(() => {
+        const isValid = VALID_PASSWORD.test(password)
+
+        if (password && isValid) {
+            setDisablePassword(false)
+        }
+    }, [password])
 
     useEffect(() => {
         if (isError) {
@@ -39,7 +52,6 @@ const AccountForm = () => {
 
     useEffect(() => {
         if (user) {
-            form.setFieldsValue({ password: '' })
             Object.keys(user).forEach(key => {
                 const currentValue = user[key]
                 if (
@@ -65,6 +77,7 @@ const AccountForm = () => {
                     }
                 }
             })
+            form.setFieldsValue({ password: '' })
         }
     }, [user])
 
@@ -83,6 +96,16 @@ const AccountForm = () => {
 
     const onFormClearClick = () => form.resetFields()
 
+    const onPasswordSubmit = async () => {
+        setPasswordLoading(true)
+        try {
+            const newPassword = form.getFieldValue('password')
+            console.log(newPassword)
+            // await updatePassword()
+        } catch (error) {
+            // handle
+        }
+    }
     // TODO:
     // Add ability to reset/change password specifically here
 
@@ -119,13 +142,41 @@ const AccountForm = () => {
                     <div></div>
                     <Collapse expandIcon={() => <FaUserEdit />}>
                         <Panel header="Update Password" key="1">
-                            <Form.Item name="password" hasFeedback>
-                                <Input.Password
-                                    bordered={false}
-                                    placeholder="Password"
-                                    prefix={<FaLock />}
-                                />
-                            </Form.Item>
+                            <div className={styles.updatePasswordForm}>
+                                <Form.Item
+                                    name="password"
+                                    hasFeedback
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                'Please enter a valid password.',
+                                            pattern: VALID_PASSWORD
+                                        }
+                                    ]}>
+                                    <Input.Password
+                                        bordered={false}
+                                        placeholder="Password"
+                                        prefix={<FaLock />}
+                                    />
+                                </Form.Item>
+                                <div className={styles.reqs}>
+                                    <span>Must contain at least:</span>
+                                    <ul>
+                                        <li>8 digits</li>
+                                        <li>1 Uppercase letter</li>
+                                        <li>1 Number</li>
+                                        <li>1 Special character</li>
+                                    </ul>
+                                </div>
+                                <Button
+                                    disabled={disablePassword}
+                                    type="primary"
+                                    loading={passwordLoading}
+                                    onClick={onPasswordSubmit}>
+                                    Update Password
+                                </Button>
+                            </div>
                         </Panel>
                     </Collapse>
                 </div>

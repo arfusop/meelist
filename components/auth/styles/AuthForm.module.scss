@@ -64,6 +64,21 @@
                     font-size: 1rem !important;
                 }
             }
+
+            .updatePasswordForm {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                .reqs {
+                    margin-left: 0.75rem;
+                }
+
+                button {
+                    width: 12rem;
+                    margin-left: 0.75rem;
+                }
+            }
         }
 
         .buttons {

@@ -7,3 +7,4 @@ export const COOKIE_SETTINGS = {
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production'
 }
+export const TOKEN_EXPIRATION_HOURS = '16h'

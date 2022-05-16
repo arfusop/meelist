@@ -16,6 +16,7 @@ import {
 } from 'react-icons/fa'
 import { FiTarget } from 'react-icons/fi'
 
+import { isPasswordValid } from '../../utils/validations'
 import { VALID_PASSWORD } from '../../utils/regex'
 import { useUser } from '../../lib/hooks'
 import { updateAccount, updatePassword } from '../../lib/mutations'
@@ -30,11 +31,12 @@ const AccountForm = () => {
     const [loading, setLoading] = useState(false)
     const [passwordLoading, setPasswordLoading] = useState(false)
     const [disablePassword, setDisablePassword] = useState(true)
+    const [panelKey, setPanelKey] = useState(null)
 
     const password = Form.useWatch('password', form)
 
     useEffect(() => {
-        const isValid = VALID_PASSWORD.test(password)
+        const isValid = isPasswordValid(password)
 
         if (password && isValid) {
             setDisablePassword(false)
@@ -96,14 +98,19 @@ const AccountForm = () => {
 
     const onFormClearClick = () => form.resetFields()
 
+    const updatePanelKey = (panel: any) => setPanelKey(panel[0])
+
     const onPasswordSubmit = async () => {
         setPasswordLoading(true)
         try {
             const newPassword = form.getFieldValue('password')
-            console.log(newPassword)
-            // await updatePassword()
+            await updatePassword({ email: user.email, password: newPassword })
+            setPasswordLoading(false)
+            setDisablePassword(true)
+            setPanelKey(null)
         } catch (error) {
-            // handle
+            // display banner
+            console.log(error)
         }
     }
     // TODO:
@@ -140,8 +147,11 @@ const AccountForm = () => {
                 </div>
                 <div className={`${styles.row} ${styles.passwordResetRow}`}>
                     <div></div>
-                    <Collapse expandIcon={() => <FaUserEdit />}>
-                        <Panel header="Update Password" key="1">
+                    <Collapse
+                        onChange={updatePanelKey}
+                        expandIcon={() => <FaUserEdit />}
+                        activeKey={panelKey}>
+                        <Panel header="Update Password" key="updatePassword">
                             <div className={styles.updatePasswordForm}>
                                 <Form.Item
                                     name="password"

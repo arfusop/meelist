@@ -7,7 +7,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import {
     JWT_SECRET,
     COOKIE_SETTINGS,
-    ACCESS_TOKEN
+    ACCESS_TOKEN,
+    TOKEN_EXPIRATION_HOURS
 } from '../../utils/constants'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -36,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             time: Date.now()
         },
         JWT_SECRET,
-        { expiresIn: '16h' }
+        { expiresIn: TOKEN_EXPIRATION_HOURS }
     )
 
     res.setHeader(

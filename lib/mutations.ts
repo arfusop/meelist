@@ -11,4 +11,5 @@ export const updateAccount = (body: any) => {
     return fetcher('/account', body)
 }
 
-export const updatePassword = (body: any) => fetcher('/password-update', body)
+export const updatePassword = (body: { password: string; email: string }) =>
+    fetcher('/password-update', body)

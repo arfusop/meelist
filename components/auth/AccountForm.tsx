@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useStoreState, useStoreActions } from 'easy-peasy'
-import { Form, Select, InputNumber, Input, Button } from 'antd'
+import { Form, Select, InputNumber, Input, Button, Collapse } from 'antd'
 import { format } from 'date-fns'
+const { Panel } = Collapse
 const { Option } = Select
 import {
     FaUserAlt,
@@ -10,7 +11,8 @@ import {
     FaArrowsAltV,
     FaBalanceScale,
     FaRegCalendarAlt,
-    FaPercentage
+    FaPercentage,
+    FaUserEdit
 } from 'react-icons/fa'
 import { FiTarget } from 'react-icons/fi'
 
@@ -37,6 +39,7 @@ const AccountForm = () => {
 
     useEffect(() => {
         if (user) {
+            form.setFieldsValue({ password: '' })
             Object.keys(user).forEach(key => {
                 const currentValue = user[key]
                 if (
@@ -45,7 +48,9 @@ const AccountForm = () => {
                     key !== 'id'
                 ) {
                     if (key === 'password') {
-                        form.setFieldsValue({ password: '************' })
+                        form.setFieldsValue({
+                            ['password-disabled']: '************'
+                        })
                     }
                     if (currentValue !== null) {
                         if (key === 'dob') {
@@ -102,13 +107,27 @@ const AccountForm = () => {
                             disabled
                         />
                     </Form.Item>
-                    <Form.Item name="password" hasFeedback>
+                    <Form.Item name="password-disabled" hasFeedback>
                         <Input.Password
                             placeholder="Password"
                             prefix={<FaLock />}
                             disabled
                         />
                     </Form.Item>
+                </div>
+                <div className={`${styles.row} ${styles.passwordResetRow}`}>
+                    <div></div>
+                    <Collapse expandIcon={() => <FaUserEdit />}>
+                        <Panel header="Update Password" key="1">
+                            <Form.Item name="password" hasFeedback>
+                                <Input.Password
+                                    bordered={false}
+                                    placeholder="Password"
+                                    prefix={<FaLock />}
+                                />
+                            </Form.Item>
+                        </Panel>
+                    </Collapse>
                 </div>
                 <div className={styles.row}>
                     <Form.Item name="firstName">

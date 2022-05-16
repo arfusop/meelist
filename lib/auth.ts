@@ -7,24 +7,21 @@ import { ACCESS_TOKEN, JWT_SECRET } from '../utils/constants'
 export const validateRoute = handler => {
     return async (req: NextApiRequest, res: NextApiResponse) => {
         const token = req.cookies[ACCESS_TOKEN]
-
         if (token) {
-            let user
             try {
                 const { id } = jwt.verify(token, JWT_SECRET)
-                user = await prisma.user.findUnique({
+                const user = await prisma.user.findUnique({
                     where: { id }
                 })
 
                 if (!user) {
                     throw new Error('Invalid user')
                 }
+                return handler(req, res, user)
             } catch (error) {
                 res.status(401)
                 res.json({ error: 'Not Authorized' })
-                return
             }
-            return handler(req, res, user)
         }
         res.status(401)
         res.json({ error: 'Not Authorized' })

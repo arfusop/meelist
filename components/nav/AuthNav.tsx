@@ -1,14 +1,26 @@
 import { useRouter } from 'next/router'
-import { useStoreState, useStoreActions } from 'easy-peasy'
-import { FaArrowAltCircleRight, FaUserAlt } from 'react-icons/fa'
+import { useStoreActions } from 'easy-peasy'
+import { FaArrowAltCircleRight, FaUserAlt, FaThLarge } from 'react-icons/fa'
 
 import fetcher from '../../lib/fetcher'
+import { isActiveNavIcon } from '../../utils/dynamicClasses'
 import styles from './Nav.module.scss'
 
 const AuthNav = () => {
     const router = useRouter()
     const setUser = useStoreActions((store: any) => store.setUser)
-    const onAccountIconClick = () => router.push('/account')
+    const onAccountIconClick = () => {
+        const isOnAccountPage = router.pathname.includes('account')
+        if (!isOnAccountPage) {
+            router.push('/account')
+        }
+    }
+    const onDashboardIconClick = () => {
+        const isOnDashboard = router.pathname.includes('dashboard')
+        if (!isOnDashboard) {
+            router.push('/dashboard')
+        }
+    }
 
     const onLogoutClick = async () => {
         try {
@@ -26,7 +38,18 @@ const AuthNav = () => {
                 <p>LOGO</p>
             </div>
             <div className={styles.linksWrapper}>
-                <FaUserAlt onClick={onAccountIconClick} />
+                <FaThLarge
+                    className={
+                        styles[isActiveNavIcon(router.pathname, 'dashboard')]
+                    }
+                    onClick={onDashboardIconClick}
+                />
+                <FaUserAlt
+                    className={
+                        styles[isActiveNavIcon(router.pathname, 'account')]
+                    }
+                    onClick={onAccountIconClick}
+                />
                 <FaArrowAltCircleRight onClick={onLogoutClick} />
             </div>
         </nav>

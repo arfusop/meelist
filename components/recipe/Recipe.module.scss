@@ -1,0 +1,63 @@
+.card {
+    height: fit-content;
+    position: relative;
+    .image {
+        width: 25vw;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        .titleBox {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            .smallTitle {
+                color: rgb(142, 142, 142);
+                padding: 1rem 1rem 0 0;
+                margin: 0;
+            }
+            .title {
+                color: whitesmoke;
+                font-size: 2rem;
+                font-weight: 300;
+                padding: 0 1rem 0 0;
+            }
+        }
+        .cardFooter {
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            backdrop-filter: blur(3px);
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 1rem;
+            .button {
+                border: none;
+                border-radius: 20px;
+                padding: 0.5rem 0.9rem;
+                color: white;
+                background-color: black;
+            }
+        }
+    }
+    // .line {
+    //     width: 90%;
+    //     border: 0;
+    //     height: 1px;
+    //     background-image: linear-gradient(
+    //         to right,
+    //         rgba(255, 255, 255, 0),
+    //         rgb(0, 0, 0),
+    //         rgba(255, 255, 255, 0)
+    //     );
+    // }
+}

@@ -1,0 +1,66 @@
+.homePage {
+    .welcomeSection {
+        min-height: 90vh;
+        background-image: url('../../assets/KnifeAndGreens.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'info login';
+        .info {
+            grid-area: info;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .info_box {
+                height: 30rem;
+                background-color: rgba(129, 164, 134, 0.25);
+                padding: 2rem;
+                border-radius: 16px;
+                backdrop-filter: blur(20px);
+                display: flex;
+                flex-direction: column;
+                h1 {
+                    font-size: 4rem;
+                    color: white;
+                }
+                p {
+                    width: 40rem;
+                    font-size: 1rem;
+                }
+            }
+        }
+        .login {
+            grid-area: login;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .aboutSection {
+        background-color: rgb(45, 146, 112);
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        h1 {
+            font-size: 2rem;
+            color: orange;
+        }
+        p {
+            width: 70rem;
+            font-weight: 600;
+        }
+    }
+    .recipeDisplay {
+        min-height: 100vh;
+        background-color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10rem;
+    }
+}

@@ -1,0 +1,18 @@
+.loginForm {
+    width: 25rem;
+    height: 30rem;
+    background-color: rgba(129, 164, 134, 0.25);
+    padding: 2rem 5rem 2rem 5rem;
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+    div {
+        margin: 3rem 0 0 0;
+    }
+}
